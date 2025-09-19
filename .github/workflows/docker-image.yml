@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    
+
     - name: Detect changed services
       id: changes
       run: |
@@ -35,7 +35,7 @@ jobs:
 
     - name: Build both
       run: |
-        docker compose up --build
+        docker compose up --build -d
 
     - name: Run python tests
       run: |
@@ -50,5 +50,8 @@ jobs:
 
         for SERVICE in $CHANGED_SERVICES; do
 
-          docker push $SERVICE
+          docker push jetpans/avl-services:service1-${VERSION}
         done
+    - name: Cleanup
+      run: |
+        docker compose down
