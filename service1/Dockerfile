@@ -1,6 +1,6 @@
 FROM ghcr.io/openfaas/of-watchdog:0.9.11 AS watchdog
 # Changed from latest to version we know is stable
-FROM python:3.12
+FROM python:3.12-slim
 
 # Copy the watchdog binary from the official image
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog

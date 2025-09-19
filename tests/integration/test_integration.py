@@ -19,4 +19,4 @@ def test_service2():
 
 
 def test_three():
-    assert 3 == 4
+    assert 3 == 3

@@ -1,0 +1,56 @@
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Detect changed services
+      id: changes
+      run: |
+        CHANGED_SERVICES=""
+        if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q '^service1/'; then
+          CHANGED_SERVICES="$CHANGED_SERVICES service1"
+        fi
+        if git diff --name-only ${{ github.sha }}^ ${{ github.sha }} | grep -q '^service2/'; then
+          CHANGED_SERVICES="$CHANGED_SERVICES service2"
+        fi
+        echo "CHANGED_SERVICES=$CHANGED_SERVICES" >> $GITHUB_ENV
+        echo "Changed services: $CHANGED_SERVICES"
+
+    - name: Get version id (latest commit SHA)
+      id: version
+      run: |
+        VERSION=$(git rev-parse --short HEAD)
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "Using version: $VERSION"
+
+    - name: Build both
+      run: |
+        docker compose up --build
+
+    - name: Run python tests
+      run: |
+        pip install -r requirements.txt
+        pytest tests/unit
+        pytest tests/integration
+
+    - name: Push to Dockerhub
+      if: env.CHANGED_SERVICES != ''
+      run: |
+        echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+        for SERVICE in $CHANGED_SERVICES; do
+
+          docker push $SERVICE
+        done
