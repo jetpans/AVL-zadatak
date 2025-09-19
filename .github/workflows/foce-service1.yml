@@ -27,7 +27,6 @@ jobs:
         pytest tests/integration
 
     - name: Push to Dockerhub
-      if: env.CHANGED_SERVICES != ''
       run: |
         echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
         docker push jetpans/avl-services:service1-${VERSION}
