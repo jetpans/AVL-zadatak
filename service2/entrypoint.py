@@ -8,4 +8,5 @@ message = requests.get(sys.stdin.readline()).text
 data = ["md5", message]
 
 
+
 print(requests.post(SERVICE1_URL, data="\n".join(data)).text)
