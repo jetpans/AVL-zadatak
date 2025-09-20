@@ -1,12 +1,12 @@
 services:
   service1:
     build: ./service1
-    image: jetpans/avl-services:service1-${VERSION:-latest}
+    image: jetpans/avl-services:service1-latest
     ports:
       - "8080:8080"
   service2:
     build: ./service2
-    image: jetpans/avl-services:service2-${VERSION:-latest}
+    image: jetpans/avl-services:service2-latest
     environment:
       SERVICE1_URL: http://service1:8080
     depends_on:

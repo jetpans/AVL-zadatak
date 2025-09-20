@@ -4,6 +4,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
 jobs:
 
   build:
@@ -12,16 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        fetch-depth: 2
+
+    - name: "Install python dependencies"
+      run:
+        "pip install -r requirements.txt"
+      
+
 
     - name: Detect changed services
       id: changes
       run: |
         CHANGED_SERVICES=""
         
-        # Always compare current commit to previous commit
-        # Handle the case where there might be no previous commit
         if git rev-parse --verify ${{ github.sha }}^ >/dev/null 2>&1; then
           echo "Comparing ${{ github.sha }}^ to ${{ github.sha }}"
           COMPARE_RANGE="${{ github.sha }}^..${{ github.sha }}"
@@ -48,20 +51,12 @@ jobs:
         echo "CHANGED_SERVICES=$CHANGED_SERVICES" >> $GITHUB_ENV
         echo "Changed services: '$CHANGED_SERVICES'"
 
-    - name: Get version id (latest commit SHA)
-      id: version
-      run: |
-        VERSION=$(git rev-parse --short HEAD)
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-        echo "Using version: $VERSION"
-
     - name: Build both
       run: |
         docker compose up --build -d
 
     - name: Run python tests
       run: |
-        pip install -r requirements.txt
         pytest tests/unit
         pytest tests/integration
 
@@ -70,10 +65,23 @@ jobs:
       run: |
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-        for SERVICE in $CHANGED_SERVICES; do
-
-          docker push jetpans/avl-services:${SERVICE}-${VERSION}
-        done
+        if [[ "$CHANGED_SERVICES" == *"service1"* ]]; then
+          cd service1
+          semantic-release publish-version
+          VERSION_SERVICE1=$(semantic-release current-version)
+          docker tag jetpans/avl-services:service1-latest jetpans/avl-services:service1-${VERSION_SERVICE1}
+          docker push jetpans/avl-services:service1-${VERSION_SERVICE1}
+          cd ..
+        fi
+        if [[ "$CHANGED_SERVICES" == *"service2"* ]]; then
+          cd service2
+          semantic-release publish-version
+          VERSION_SERVICE2=$(semantic-release current-version)
+          docker tag jetpans/avl-services:service2-latest jetpans/avl-services:service2-${VERSION_SERVICE2}
+          docker push jetpans/avl-services:service2-${VERSION_SERVICE2}
+          cd ..
+        fi
+    
     - name: Cleanup
       if : always()
       run: |

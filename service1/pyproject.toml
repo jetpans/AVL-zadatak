@@ -1,0 +1,8 @@
+[tool.semantic_release]
+version_toml = ["pyproject.toml:tool.semantic_release.version"]
+version = "0.0.0"
+branch = "main"
+upload_to_pypi = false
+upload_to_release = false
+build_command = ""
+commit_message = "chore(service1): release {version}"
