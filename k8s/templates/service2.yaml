@@ -39,6 +39,7 @@ kind: Service              # Tells Kubernetes this object is a Service
 metadata:
   name: service2         # Name of the Service (used by other services to talk to this one)
 
+
 spec:
   type: NodePort
   selector:
