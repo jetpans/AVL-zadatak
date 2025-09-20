@@ -13,10 +13,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
 
     - name: "Install python dependencies"
-      run:
-        "pip install -r requirements.txt"
+      run: |
+        pip install -r requirements.txt
       
 
 
@@ -60,8 +62,11 @@ jobs:
         pytest tests/unit
         pytest tests/integration
 
+
     - name: Push to Dockerhub
       if: env.CHANGED_SERVICES != ''
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
@@ -83,9 +88,6 @@ jobs:
         fi
 
         if [[ "$CHANGED_SERVICES" != '' ]]; then
-          git config --global user.name "github-actions"
-          git config --global user.email "
-          git commit -am "chore: bump versions [skip ci]"
           git push
         fi
     
