@@ -1,6 +1,6 @@
 [tool.semantic_release]
 version_toml = ["pyproject.toml:tool.semantic_release.version"]
-version = "2.0.0"
+version = "2.1.0"
 tag_format = "service1-v{version}"
 branch = "main"
 upload_to_pypi = false

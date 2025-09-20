@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v2.1.0 (2025-09-20)
+
+### Features
+
+- **service1**: Checking if this works
+  ([`e64be1c`](https://github.com/jetpans/AVL-zadatak/commit/e64be1c59b23b22672993e16f10723da6e2bf7cf))
+
+
 ## v2.0.0 (2025-09-20)
 
 ### Chores
