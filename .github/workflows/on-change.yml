@@ -3,6 +3,11 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+permissions:
+  contents: write  # Needed to push commits and tags
+  pull-requests: write  # Needed for releases
+  issues: write  # Needed for releases
 
 
 jobs:
