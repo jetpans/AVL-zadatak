@@ -3,7 +3,7 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
+
 permissions:
   contents: write  # Needed to push commits and tags
   pull-requests: write  # Needed for releases
@@ -78,7 +78,7 @@ jobs:
         if [[ "$CHANGED_SERVICES" == *"service1"* ]]; then
           cd service1
           VERSION_SERVICE1=$(semantic-release version --print)
-          semantic-release version
+          semantic-release version --no-push
           docker tag jetpans/avl-services:service1-latest jetpans/avl-services:service1-${VERSION_SERVICE1}
           docker push jetpans/avl-services:service1-${VERSION_SERVICE1}
           cd ..
@@ -86,11 +86,14 @@ jobs:
         if [[ "$CHANGED_SERVICES" == *"service2"* ]]; then
           cd service2
           VERSION_SERVICE2=$(semantic-release version --print)
-          semantic-release version
+          semantic-release version --no-push
           docker tag jetpans/avl-services:service2-latest jetpans/avl-services:service2-${VERSION_SERVICE2}
           docker push jetpans/avl-services:service2-${VERSION_SERVICE2}
           cd ..
         fi
+
+        git push origin main --follow-tags
+
     
     - name: Cleanup
       if : always()
