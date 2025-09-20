@@ -43,5 +43,5 @@ spec:
     app: service1      # Matches pods with this label and routes traffic to them
   ports:
   - port: 80             # Port the Service exposes INSIDE the cluster (other pods call service-a:80)
-    targetPort: 8080
-    nodePort: {{.Values.service1.nodePort}}       # Port inside the pod where traffic should go (matches containerPort above)
+    targetPort: 8080 # Port inside the pod where traffic should go (matches containerPort above)
+    nodePort: {{.Values.service1.nodePort}}       

@@ -1,5 +1,42 @@
 # CI/CD
 
+# SOLUTION
+
+## Results
+
+### Build
+  - Automatic build,testing and versioning of images 
+  - use feat(service1), fix(service1), fix(service2)! etc... in commit message to update MAJOR.MINOR.PATCH of version
+  - tests are in ./tests, they run after every push to main (suggest to run locally aswell using /test.sh)
+  - built and versioned images are uploaded to dockerhub, for example "jetpans/avl-services:service1-2.0.0" size is around 50MB
+  - service dependencies are in service*/requirements.txt
+  - developer requirements are in /requirements.txt
+### Simple deployment
+  ```bash
+> ./deploy.sh version_service1=1.0.0 version_service2=2.0.0 service1_port=30000 service2_port=30001 # example
+  ```
+  - press any key to clean up after yourself
+
+### Kubernetes deployment
+    ```bash
+    minikube start # Spin up your kubernetes cluster
+> ./deployk8s.sh version_service1=1.0.0 version_service2=2.0.0 service1_port=30000 service2_port=30001 # example
+  ```
+  - use command for easier deployment because it requires port forwarding for ports to be exposed
+
+## Comments
+  - Had to update both Dockerfile-s because fwatchdog installation was legacy
+  - Using exact python version (the one we know the project is stable on), curently using python3.12-slim for images
+  - Add dependency list (requirements.txt) for better scalability
+  - First ***version*** of ***versioning*** was based on github commit SHA, but later updated to MAJOR.MINOR.PATCH format
+  - I cannot get my kubernetes cluster to expose ports on localhost without port forwarding, which is fine because usually these ports are mapped to
+  URL-s which requires some kind of port forwarding anyways
+  - I'm sorry for dirty commit history because of Github-Actions testing
+  
+
+###
+
+
 ## *Microservices*
 
 There are 2 microservices:
