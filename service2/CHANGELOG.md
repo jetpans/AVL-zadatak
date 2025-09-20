@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v4.0.0 (2025-09-20)
+
+### Features
+
+- **service2**: Different debug print
+  ([`d3bf009`](https://github.com/jetpans/AVL-zadatak/commit/d3bf00972f2276cff966999645d8436d27b5955e))
+
+
 ## v3.0.0 (2025-09-20)
 
 ### Features
