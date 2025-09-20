@@ -16,6 +16,7 @@ def test_service2():
     url = "https://google.com"
     response = requests.post(SERVICE2_URL, data=url)
     assert response.status_code == 200
+    assert len(response.text) == 34
 
 
 def test_three():

@@ -73,3 +73,9 @@ Create a script (bash/python) that would deploy (run with docker) the set of mic
 * Git
 * CI/CD tool (GitLab/Azure DevOps/CircleCI/Jenkins/**github actions**/...)
 * Python
+
+
+# TODO
+Fix versions to standard ones but not automatic
+Deployment locally CONFIGURABLE script
+Deployment kubernetes
