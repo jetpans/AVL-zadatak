@@ -55,7 +55,6 @@ jobs:
         pytest tests/unit
         pytest tests/integration
 
-
     - name: Push to Dockerhub
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
