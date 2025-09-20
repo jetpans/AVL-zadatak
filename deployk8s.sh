@@ -27,6 +27,7 @@ if [ -z "$service2_port" ]; then
     echo "service2_port not provided, defaulting to $service2_port"
 fi
 
+kubectl create secret docker-registry dockerhub-secret --docker-username=$DOCKERHUB_USERNAME --docker-password=$DOCKERHUB_PASSWORD 
 
 
 helm upgrade --install avl-k8s ./k8s --set service1.version=$service1_version --set service2.version=$service2_version --set service1.nodePort=$service1_port --set service2.nodePort=$service2_port
