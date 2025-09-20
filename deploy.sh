@@ -13,7 +13,7 @@ if [ -z "$service1_version" ]; then
     echo "service1_version not provided, defaulting to $service1_version"
 fi
 if [ -z "$service2_version" ]; then
-    service2_version="1.0.0"
+    service2_version="3.0.0"
     echo "service2_version not provided, defaulting to $service2_version"
 fi
 

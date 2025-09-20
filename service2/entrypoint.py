@@ -4,8 +4,7 @@ import os
 
 SERVICE1_URL = os.getenv("SERVICE1_URL", "ERR")
 
-assert SERVICE1_URL != "ERR"
-
+print(SERVICE1_URL, file=sys.stderr)
 message = requests.get(sys.stdin.readline()).text
 data = ["md5", message]
 
