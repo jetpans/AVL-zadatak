@@ -86,10 +86,6 @@ jobs:
           docker push jetpans/avl-services:service2-${VERSION_SERVICE2}
           cd ..
         fi
-
-        if [[ "$CHANGED_SERVICES" != '' ]]; then
-          git push
-        fi
     
     - name: Cleanup
       if : always()
