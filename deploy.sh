@@ -38,7 +38,7 @@ docker pull jetpans/avl-services:service2-$service2_version
 docker network create avl-net 
 
 docker run -d -p $service1_port:8080 --network avl-net --name service1 jetpans/avl-services:service1-$service1_version
-docker run -d -p $service2_port:8081 --network avl-net -e SERVICE1_URL="http://service1:8080" --name service2 jetpans/avl-services:service2-$service2_version 
+docker run -d -p $service2_port:8080 --network avl-net -e SERVICE1_URL="http://service1:8080" --name service2 jetpans/avl-services:service2-$service2_version 
 
 echo Application deployed successfully
 
