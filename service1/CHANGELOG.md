@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v3.1.0 (2025-09-20)
+
+### Features
+
+- **service1**: Testing if minor upgrade works
+  ([`d18a4eb`](https://github.com/jetpans/AVL-zadatak/commit/d18a4ebacf4b60998cb014399d5c20b7593b2d39))
+
+
 ## v3.0.0 (2025-09-20)
 
 ### Chores
