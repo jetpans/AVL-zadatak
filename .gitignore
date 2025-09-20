@@ -1,2 +1,4 @@
 tests/integration/__pycache__
 tests/unit/__pycache__
+kubectl_service2.log
+kubectl_service1.log

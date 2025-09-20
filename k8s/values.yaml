@@ -1,0 +1,14 @@
+service1:
+  version: 1.0.0
+  replicas: 2
+  nodePort: 30080
+  imagePullPolicy: IfNotPresent
+
+service2:
+  version: 1.0.0
+  replicas: 2
+  nodePort: 30081
+  imagePullPolicy: IfNotPresent
+
+imagePullSecrets:
+- name: dockerhub-secret

@@ -1,0 +1,49 @@
+# ----------------------------
+# DEPLOYMENT SECTION
+# ----------------------------
+apiVersion: apps/v1        # API version for the Deployment resource (apps/v1 is the standard for Deployments)
+kind: Deployment           # Tells Kubernetes this object is a Deployment (not a Pod, Service, etc.)
+metadata:
+  name: service2      # The name of the Deployment (used for reference and management)
+
+spec:
+  replicas: {{.Values.service2.replicas}}              # Number of pod copies (replicas) you want running at all times
+  selector:                # Tells Kubernetes which pods this Deployment manages
+    matchLabels:
+      app: service2      # Must match the "labels" under template -> metadata below
+  template:                # Template used to create pods
+    metadata:
+      labels:
+        app: service2    # Label applied to each pod so they can be identified by the Deployment and the Service
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml .Values.imagePullSecrets | nindent 6 }}
+      {{- end }}
+      containers:
+      - name: service2    # Name of the container inside the pod (useful for logs, debugging)
+        image: jetpans/avl-services:service2-{{.Values.service2.version}}  # The Docker image to run (must be accessible to the cluster)
+        ports:
+        - containerPort: 8080 # The port your container listens on (used for networking inside the pod)
+        env:
+        - name: ENV        # Defines environment variables available to your container
+          value: production # "production" will be available as ENV=production inside the container
+        - name: SERVICE1_URL
+          value: "http://service1:80"
+# ----------------------------
+# SERVICE SECTION
+# ----------------------------
+---
+apiVersion: v1             # API version for the Service resource
+kind: Service              # Tells Kubernetes this object is a Service
+metadata:
+  name: service2         # Name of the Service (used by other services to talk to this one)
+
+spec:
+  type: NodePort
+  selector:
+    app: service2      # Matches pods with this label and routes traffic to them
+  ports:
+  - port: 81              
+    targetPort: 8080  
+    nodePort: {{.Values.service2.nodePort}}

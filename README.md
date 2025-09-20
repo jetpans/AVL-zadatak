@@ -76,5 +76,4 @@ Create a script (bash/python) that would deploy (run with docker) the set of mic
 
 
 # TODO
-Deployment locally CONFIGURABLE script
 Deployment kubernetes
