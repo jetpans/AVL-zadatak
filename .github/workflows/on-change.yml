@@ -67,19 +67,26 @@ jobs:
 
         if [[ "$CHANGED_SERVICES" == *"service1"* ]]; then
           cd service1
-          semantic-release publish-version
-          VERSION_SERVICE1=$(semantic-release current-version)
+          VERSION_SERVICE1=$(semantic-release version --print)
+          semantic-release version
           docker tag jetpans/avl-services:service1-latest jetpans/avl-services:service1-${VERSION_SERVICE1}
           docker push jetpans/avl-services:service1-${VERSION_SERVICE1}
           cd ..
         fi
         if [[ "$CHANGED_SERVICES" == *"service2"* ]]; then
           cd service2
-          semantic-release publish-version
-          VERSION_SERVICE2=$(semantic-release current-version)
+          VERSION_SERVICE2=$(semantic-release version --print)
+          semantic-release version
           docker tag jetpans/avl-services:service2-latest jetpans/avl-services:service2-${VERSION_SERVICE2}
           docker push jetpans/avl-services:service2-${VERSION_SERVICE2}
           cd ..
+        fi
+
+        if [[ "$CHANGED_SERVICES" != '' ]]; then
+          git config --global user.name "github-actions"
+          git config --global user.email "
+          git commit -am "chore: bump versions [skip ci]"
+          git push
         fi
     
     - name: Cleanup
