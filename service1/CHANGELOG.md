@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v3.2.0 (2025-09-20)
+
+### Features
+
+- **service1**: Another version upgrade
+  ([`d6ccbff`](https://github.com/jetpans/AVL-zadatak/commit/d6ccbffcb5cc70d19cc9d47aba25d76e486d0d69))
+
+
 ## v3.1.0 (2025-09-20)
 
 ### Features
