@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v3.0.0 (2025-09-20)
+
+### Features
+
+- **service2**: Added debug statement to service2
+  ([`bc5f41c`](https://github.com/jetpans/AVL-zadatak/commit/bc5f41c7b7587c07c35ea451deb2d935311933b6))
+
+
 ## v2.0.0 (2025-09-20)
 
 ### Chores
