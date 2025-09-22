@@ -18,9 +18,9 @@
   - press any key to clean up after yourself
 
 ### Kubernetes deployment
-    ```bash
-    minikube start # Spin up your kubernetes cluster
-> ./deployk8s.sh version_service1=1.0.0 version_service2=2.0.0 service1_port=30000 service2_port=30001 # example
+  ```bash
+>   minikube start # Spin up your kubernetes cluster
+>   ./deployk8s.sh version_service1=1.0.0 version_service2=2.0.0 service1_port=30000 service2_port=30001 # example
   ```
   - use command for easier deployment because it requires port forwarding for ports to be exposed
 
@@ -37,6 +37,7 @@
 ###
 
 
+# TASK
 ## *Microservices*
 
 There are 2 microservices:
