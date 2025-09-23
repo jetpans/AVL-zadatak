@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v3.2.1 (2025-09-23)
+
+### Bug Fixes
+
+- **service1**: Test build
+  ([`db23f3a`](https://github.com/jetpans/AVL-zadatak/commit/db23f3a764746950563e0316c27c9421ae15912d))
+
+
 ## v3.2.0 (2025-09-20)
 
 ### Features
